@@ -102,4 +102,17 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	//  just creating an html file! :)
+
+	fp, err := os.Create("index.html")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer fp.Close()
+
+	err = tpl.ExecuteTemplate(fp, "tpl.gohtml", data)
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
