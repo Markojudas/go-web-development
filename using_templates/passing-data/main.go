@@ -23,4 +23,17 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	// Let's create an html file!
+	fp, err := os.Create("index.html")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer fp.Close()
+
+	err = tpl.ExecuteTemplate(fp, "tpl.gohtml", 42)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
