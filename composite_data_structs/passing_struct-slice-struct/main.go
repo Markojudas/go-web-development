@@ -103,8 +103,8 @@ func main() {
 		let's say that the item struct is not declared on top with package scope
 
 		data := struct{
-			Wisdom []string
-			Transport []string
+			Wisdom []sage
+			Transport []car
 		}{
 			sages,
 			cars,
