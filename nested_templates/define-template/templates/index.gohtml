@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="main.css">
+    <title>Header Menu</title>
+    <!-- haven't learned to serve files yet -->
+</head>
+
+<body>
+    {{template "svgs"}}
+
+    {{template "header"}}
+
+    <div id="atf">
+        <main>
+            <svg class="icon icon-big-in">
+                <use xlink:href="#inbox"></use>
+            </svg>
+            <h1>Are you in!?</h1>
+        </main>
+    </div>
+
+    {{template "btf"}}
+</body>
+
+</html>
