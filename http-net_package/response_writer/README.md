@@ -1,0 +1,9 @@
+# http.ResponseWriter interface
+
+```go
+type ResponseWriter interface{
+    Header() Header
+    Write([]byte)(int, error)
+    WriteHeader(statusCode int)
+}
+```
