@@ -4,9 +4,15 @@
 
 <p>Before we WRITE our RESPONSE, let's WRITE to our RESPONSE the STATUS LINE and some RESPONSE HEADERS. Remember the request line and status line:
 
-REQUEST LINE GET / HTTP/1.1 method SP request-target SP HTTP-version CRLF https://tools.ietf.org/html/rfc7230#section-3.1.1
+REQUEST LINE 
+GET / HTTP/1.1 
+method SP request-target SP HTTP-version CRLF 
+https://tools.ietf.org/html/rfc7230#section-3.1.1
 
-RESPONSE (STATUS) LINE HTTP/1.1 302 Found HTTP-version SP status-code SP reason-phrase CRLF https://tools.ietf.org/html/rfc7230#section-3.1.2
+RESPONSE (STATUS) LINE 
+HTTP/1.1 302 Found 
+HTTP-version SP status-code SP reason-phrase CRLF 
+https://tools.ietf.org/html/rfc7230#section-3.1.2
 
 Write the following strings to the response - use io.WriteString for all of the following except the second and third:
 

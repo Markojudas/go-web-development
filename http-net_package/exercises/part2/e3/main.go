@@ -22,7 +22,6 @@ func main() {
 		conn, err := li.Accept()
 		if err != nil {
 			log.Println(err)
-			continue
 		}
 
 		scanner := bufio.NewScanner(conn)
@@ -37,7 +36,7 @@ func main() {
 			}
 		}
 
-		fmt.Println("Code Got Here // when I stopped the browser")
+		fmt.Println("Code Got Here")
 		io.WriteString(conn, "I see you connected")
 
 		conn.Close()

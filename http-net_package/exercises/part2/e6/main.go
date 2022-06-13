@@ -44,9 +44,9 @@ func serve(conn net.Conn) {
 	defer conn.Close()
 
 	body := "Check ot the response body payload"
-	io.WriteString(conn, "HTTP/1.1 200 OK\r\n")
-	fmt.Fprintf(conn, "Content-Length: %d\r\n", len(body))
-	fmt.Fprintf(conn, "Content-Type: text/plain\r\n")
+	io.WriteString(conn, "HTTP/1.1 200 OK\r\n")            //status line
+	fmt.Fprintf(conn, "Content-Length: %d\r\n", len(body)) //resonse headers
+	fmt.Fprintf(conn, "Content-Type: text/plain\r\n")      //response headers
 	io.WriteString(conn, "\r\n")
 	io.WriteString(conn, body)
 }

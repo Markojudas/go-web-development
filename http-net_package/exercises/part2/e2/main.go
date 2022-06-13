@@ -30,10 +30,11 @@ func main() {
 			ln := scanner.Text()
 			fmt.Println(ln)
 		}
-		conn.Close()
 
 		fmt.Println("Code got here.")
-		io.WriteString(conn, "I see you connected")
+		io.WriteString(conn, "I see you connected") //this is never reached - caught in the loop!
+
+		conn.Close()
 
 	}
 }
