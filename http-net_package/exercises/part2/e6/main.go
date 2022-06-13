@@ -10,27 +10,26 @@ import (
 
 func main() {
 
-	//Listener
+	//create a listener
 	li, err := net.Listen("tcp", ":8080")
 	if err != nil {
 		log.Fatalln(err)
 	}
 	defer li.Close()
 
-	//infinite loop that accepts connections!
+	//infinite loop for connection
 	for {
 		conn, err := li.Accept()
 		if err != nil {
 			log.Println(err)
 			continue
 		}
-
 		go serve(conn)
 	}
 }
 
 func serve(conn net.Conn) {
-
+	//create a scanner
 	scanner := bufio.NewScanner(conn)
 
 	for scanner.Scan() {
@@ -38,12 +37,16 @@ func serve(conn net.Conn) {
 		fmt.Println(ln)
 
 		if ln == "" {
-			fmt.Println("We have reached the end!")
+			fmt.Println("End of line!")
 			break
 		}
 	}
 	defer conn.Close()
 
-	fmt.Println("Code Got Here")
-	io.WriteString(conn, "I see you connected")
+	body := "Check ot the response body payload"
+	io.WriteString(conn, "HTTP/1.1 200 OK\r\n")
+	fmt.Fprintf(conn, "Content-Length: %d\r\n", len(body))
+	fmt.Fprintf(conn, "Content-Type: text/plain\r\n")
+	io.WriteString(conn, "\r\n")
+	io.WriteString(conn, body)
 }
