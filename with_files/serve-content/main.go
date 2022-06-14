@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -9,6 +10,11 @@ import (
 func dog(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	io.WriteString(w, `<img src="/Rufus.jpg">`)
+	reqURL := fmt.Sprintln("URL:", req.URL)
+	reqMETHOD := fmt.Sprintln("Method:", req.Method)
+	io.WriteString(w, reqURL)
+	io.WriteString(w, "\n")
+	io.WriteString(w, reqMETHOD)
 }
 
 func dogPic(w http.ResponseWriter, req *http.Request) {
