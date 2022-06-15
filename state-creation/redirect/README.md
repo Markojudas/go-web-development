@@ -14,8 +14,39 @@ The response start line is called the "status line". it consists of:
 
 You can see that the status line wants a status-code and a reason-phrase. For redirects we have several status-codes and reason-phrases from which we can choose, but primarily you should choose either
 
+```go
+func Redirect(w ResponseWriter, req *Request, url string, code int)
+```
+
+Redirect replies to the request with a redirect to URL, which may be a path relative to the request path.
+
+The provided code should be in the 3xx range and is usually StatusMovedPermanently, StatusFound, or StatusSeeOther.
+
+if the Content-Type header has not been set, Redirect sets it to "text/html; charset=utf-8" and writes a small HTML body. Setting the Content-Type header to any value, including nil, disables that behavior
+
+code:
+
 <ul>
     <li> 301 moved permantely</li>
     <li> 303 see other &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;//changes method to GET </li>
     <li> 307 temporary redirect &emsp;&emsp;//keeps same method</li>
 </ul>
+
+<h2>HTTP status Codes: 3xx range</h2>
+
+```go
+const (
+    //...
+    StatusMultipleChoices = 300
+    StatusMovedPermanently = 301
+    StatusFound = 302
+    StatusSeeOther = 303
+    StatusNotModified = 304
+    StatusUseProxy = 305
+
+    StatusTemporaryRedirect = 307
+    StatysPermanentRedirect = 308
+
+    //...
+)
+```
