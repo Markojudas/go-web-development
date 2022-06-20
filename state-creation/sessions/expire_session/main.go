@@ -45,7 +45,7 @@ func main() {
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/logout", logout)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":80", nil) //chaning the port to 80 for AWS exercise, from 8080
 }
 
 func index(w http.ResponseWriter, req *http.Request) {
