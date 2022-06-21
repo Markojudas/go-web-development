@@ -19,7 +19,7 @@ func check(err error) {
 }
 
 func main() {
-	db, err = sql.Open("mysql", "marko:Anewfire=123123!!@tcp(godb.c5tkerwyxnm3.us-east-1.rds.amazonaws.com:3306)/test?charset=utf8")
+	db, err = sql.Open("mysql", "DBMASTERUSERNAME:DBMASTERPASSWD@tcp(godb.c5tkerwyxnm3.us-east-1.rds.amazonaws.com:3306)/test?charset=utf8")
 	check(err)
 	defer db.Close()
 
