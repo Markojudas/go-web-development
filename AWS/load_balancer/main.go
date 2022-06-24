@@ -18,11 +18,13 @@ func main() {
 
 func index(w http.ResponseWriter, req *http.Request) {
 	io.WriteString(w, "Hello from AWS.")
+	io.WriteString(w, "\n")
 	io.WriteString(w, req.Host)
 }
 
 func ping(w http.ResponseWriter, req *http.Request) {
 	io.WriteString(w, "OK")
+	io.WriteString(w, "\n")
 	io.WriteString(w, req.Host)
 }
 
@@ -37,5 +39,6 @@ func instance(w http.ResponseWriter, req *http.Request) {
 	resp.Body.Read(bs)
 	resp.Body.Close()
 	io.WriteString(w, string(bs))
+	io.WriteString(w, "\n")
 	io.WriteString(w, req.Host)
 }
