@@ -21,8 +21,8 @@ In this exercise we make our web application, code seen on `main.go` highly avai
     <ul>
     <li>code for the file:</li>   
 <pre>
-<code>[Unit]    
-Description=Go Server
+<code><p>[Unit]    
+Description=Go Server</p>
 
 <p>[Service]
 ExecStart=/home/ubuntu/dbExercise
