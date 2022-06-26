@@ -42,4 +42,4 @@ WantedBy=multi-user.target</code></pre>
     <li>Connect using the the DNS-NAME of your loadbalancer</li>
 </ul>
 
-This assumes the load balancer and security groups are already set up.
+These assumes the load balancer and security groups are already set up.
