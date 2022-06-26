@@ -30,8 +30,9 @@ WorkingDirectory=/home/ubuntu
 User=root
 Group=root
 Restart=always</p>
-<p>[Install]
-WantedBy=multi-user.target</p></code></pre></ul>
+[Install]
+WantedBy=multi-user.target</code></pre>
+    </ul>
     <li>Enable and start the service</li>
        <p><code>sudo systemctl enable randomname.service</code></p>
        <p><code>sudo systemctl start randomname.service</code></p>
