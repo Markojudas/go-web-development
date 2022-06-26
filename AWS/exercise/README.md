@@ -33,8 +33,8 @@ Restart=always</p>
 <p>[Install]
 WantedBy=multi-user.target</p></code></pre></ul>
     <li>Enable and start the service</li>
-       <code>sudo systemctl enable randomname.service</code>
-       <code>sudo systemctl start randomname.service</code>
+       <p><code>sudo systemctl enable randomname.service</code></p>
+       <p><code>sudo systemctl start randomname.service</code></p>
     <li>Create an image of your EC2 Instance (AMI)</li>
     <li>Launch an Instance using the newly created (AMI), making sure it's in another availability zone</li>
     <li>Add both instances to the Target Group</li>
