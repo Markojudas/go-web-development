@@ -30,7 +30,7 @@ func foo(w http.ResponseWriter, req *http.Request) {
 
 	results := dbAccess(ctx, userID)
 
-	fmt.Println(w, results)
+	fmt.Fprintln(w, results)
 
 }
 

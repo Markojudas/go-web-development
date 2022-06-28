@@ -5,6 +5,8 @@
 <a href="https://pkg.go.dev/context" target="_blank" rel="noopener noreferrer">Godocs</a><br>
 Package context defines the Context type, which carries deadlines, cnacelation signals, and other request-scoped values across API boundaries and between process.
 
+<hr>
+
 `type Context`
 
 ```go
@@ -105,19 +107,102 @@ type Context interface {
 
 ```
 
+<br>
+<hr>
+
+`func WithCancel`
+
+```go
+func WithCancel(parent Context) (ctx Context, cancel CancelFunc)
+```
+
+WithCancel returns a copy of parent with a new Done channel. The return context's Done channel is closed
+when the returned cancel function is called or when the parent context's Done channel is closed,
+which ever happenes first.
+
+Canceling this context releases resources assocaited with it, so code should call cancel as soon as the operations
+running in this Context complete
+<br>
+<br>
+
+<hr>
+
+`func Background`
+
+```go
+func Background() Context
+```
+
+Background returns a non-nil, empty Context. It is never canceled, has no values, and has no deadline.
+It is typically used by the main function, initilization, and tests, and as the top-level Context for incoming
+requests.
+<br>
+<br>
+
+<hr>
+
 `func WithValue`
 
 ```go
 func WithValue(parent Context, key, val any) Context
 ```
 
-<pre><code>WithValue returns a copy of parent in which the value associated with key is val.
+WithValue returns a copy of parent in which the value associated with key is val.
 
 Use context Values only for request-scoped data that transits processes and APIs, not for passing
 optional parameters to functions.
 
-The provided key must be comparable and should not be of type string or any other built-in type 
-to avoid collisions between packages using context. Users of WithValue should define their own 
-types for keys. To avoid allocating when assigning to an interface{}, context keys often have 
-concrete type struct{}. Alternatively, exported context key variables' static type should be 
-a pointer or interface.</p></code></pre>
+The provided key must be comparable and should not be of type string or any other built-in type
+to avoid collisions between packages using context. Users of WithValue should define their own
+types for keys. To avoid allocating when assigning to an interface{}, context keys often have
+concrete type struct{}. Alternatively, exported context key variables' static type should be
+a pointer or interface.
+<br>
+<br>
+
+<hr>
+
+`func WithDeadline`
+
+```go
+func WithDeadline(parent Context, d time.Time) (Context, CancelFunc)
+```
+
+WithDeadline returns a copy of the parent context with the deadline adjusterd to be no later than d.
+If the parent's deadline is already earlier than d, WithDeadline(parent, d) is semantically equivalent
+to parent. The returned context's Done channel is closed when the deadline expires, when the returned cnacel
+function is called, or when the parent context's Done channel is closed, whichever happens first.
+
+Canceling this context releases resources assocaited with it, so code should call cancel as soon as the operations
+running in this Context complete.
+<br>
+<br>
+
+<hr>
+
+`func WithTimeout`
+
+```go
+func WithTimeout(parent Context, timeout time.Duration) (Context, CancelFunc)
+```
+
+WithTimeout returns WithDeadline(parent, time.Now().Add(timeout)
+
+Canceling this context releases resources associated with it, so code should call cancel as
+soon as the operation running in this Context complete:
+
+<pre><code>func slowOperationWithTimeout(ctx context.Context) (Result, error) {
+	ctx, cancel := context.WithTimeout(ctx, 100*time.Millisecond)
+	defer cancel()  //releases resources if slowOperation completes before timeout elapses
+	return slowOperation(ctx)
+}</code></pre>
+<br>
+<hr>
+
+`type CancelFunc`
+
+```go
+type CancelFunc func()
+```
+
+A CancelFunc() tells an operation to abandon its work. A CancelFunc does not wait for the work to stop. A CancelFunc may be called by multiple goroutines simultaneously. After the first call, subsequent calls to a CancelFunc do nothing.
