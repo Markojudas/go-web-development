@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Index</title>
     <style>
         body {
             height: 100vh;
@@ -22,34 +22,26 @@
 
 <body>
 
-    <h1>Make a request</h1>
+
+    <h1>Make Something Happen</h1>
 
     <script>
         document.querySelector('h1').onclick = makeRequest;
 
-
         function makeRequest() {
-
-            // create a  XMLHttpRequest
-            const xhr = new XMLHttpRequest(),
-                method = "GET",
-                url = "test.html";
-
-            // open the request
-            xhr.open(method, url, true);
-
-            // handles the response
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/foo', true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     var status = xhr.status;
-                    if (status === 0 || (status >= 200 && status < 400)) {
+                    if (status === 0 || status >= 200 && status < 400) {
                         alert(xhr.responseText);
                     }
                 }
             };
-            // send the request
             xhr.send();
         }
+
 
 
     </script>
