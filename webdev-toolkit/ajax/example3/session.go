@@ -58,7 +58,11 @@ func cleanSessions() {
 	showSessions()                 //DEBUG
 
 	for key, val := range dbSessions {
-		if time.Now().Sub(val.lastActivity) > (time.Second * 30) {
+		// if time.Now().Sub(val.lastActivity) > (time.Second * 30) {
+		// 	delete(dbSessions, key)
+		// }
+
+		if time.Since(val.lastActivity) > (time.Second * 30) {
 			delete(dbSessions, key)
 		}
 	}

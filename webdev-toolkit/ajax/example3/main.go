@@ -186,7 +186,11 @@ func logout(w http.ResponseWriter, req *http.Request) {
 	http.SetCookie(w, cookie)
 
 	//clean up dbSessions
-	if time.Now().Sub(dbSessionsCleaned) > (time.Second * 30) {
+	// if time.Now().Sub(dbSessionsCleaned) > (time.Second * 30) {
+	// 	go cleanSessions()
+	// }
+
+	if time.Since(dbSessionsCleaned) > (time.Second * 30) {
 		go cleanSessions()
 	}
 
