@@ -29,8 +29,8 @@ go install gopkg.in/mgo.v2/bson
 <br>
 **See user / GET:**<br>
 
-<code>curl http://localhost:8080/user/<enter-user-id-here></code>
+<code>curl http://localhost:8080/user/[enter-user-id-here]</code>
 <br>
 <br>
 **Delete User:**<br>
-<code>curl -X DELETE http://localhost:8080/user/<enter-user-id-here></code>
+<code>curl -X DELETE http://localhost:8080/user/[enter-user-id-here]</code>
