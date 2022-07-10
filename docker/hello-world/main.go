@@ -11,6 +11,6 @@ func main() {
 	http.ListenAndServe(":80", nil)
 }
 
-func index(w http.ResponseWriter, req *http.Request) {
+func index(w http.ResponseWriter, _ *http.Request) {
 	io.WriteString(w, "hello world from a docker container!!")
 }
