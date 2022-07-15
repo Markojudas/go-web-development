@@ -95,7 +95,7 @@ Also, pretty self explanatory! ;)
 ## Create Collections
 
 **implicitly**<br>
-<code>db.[collection-name].insertOne("key":"value")</coe>
+<code>db.[collection-name].insertOne("key":"value")</code>
 <br>
 <br>
 
