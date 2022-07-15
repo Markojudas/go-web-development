@@ -124,3 +124,20 @@ Also, pretty self explanatory! ;)
 ## Drop Collection
 
 <pre><code>db.[collection-name].drop()</code></pre>
+<br>
+
+## Insert Many Documents
+
+<pre><code>db.[collectionName].insertMany(
+    [ < document 1 >, < document 2 >, ...],
+    {
+        writeConcern: < document >,
+        ordered: < boolean >
+    }
+)</code></pre>
+
+| Parameter      | Type     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `document`     | document | an array of documents to insert into the collection.                                                                                                                                                                                                                                                                                                                                                                                              |
+| `writeConcern` | document | Optional. A document expressing the <a href="https://www.mongodb.com/docs/manual/reference/write-concern/">write concern</a>. Omit to use the default write concern. <br><br>Do not explicitly set the write concern for the operation if run in a transaction. To use write concern with transactions, see <a href="https://www.mongodb.com/docs/manual/core/transactions/#std-label-transactions-write-concern">Transactions and Write Concern. |
+| `ordered`      | boolean  | Optional. A boolean specifying whether the `mongod` instance should perform an ordered or unordered insert. defaults to `true`.                                                                                                                                                                                                                                                                                                                   |
