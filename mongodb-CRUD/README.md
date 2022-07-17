@@ -243,3 +243,139 @@ db.customers.find("name:"Bond"})</code></pre>
 )</code></pre>
 
 <a href="./resources/regex.pdf">regex cheatsheet</a>
+<br>
+
+# Update
+
+<a href="https://www.mongodb.com/docs/v4.4/reference/method/db.collection.updateOne/#mongodb-method-db.collection.updateOne">db.collection.updateOne()</a><br>
+<a href="https://www.mongodb.com/docs/v4.4/reference/method/db.collection.updateMany/#mongodb-method-db.collection.updateMany">db.collection.updateMany()</a><br>
+<a href="https://www.mongodb.com/docs/v4.4/reference/method/db.collection.replaceOne/#mongodb-method-db.collection.replaceOne">db.collection.replaceOne()</a><br>
+<a href="https://www.mongodb.com/docs/v4.4/reference/update-methods/#std-label-additional-updates">additional methods</a><br>
+
+## Usage:
+
+<pre><code>db.customers.updateOne (
+    { _id:ObjectId("62d445d84d723c4925c40f28") },
+    { $set:
+        { role: "double-zero" }
+    }
+)
+db.customers.updateOne (
+    {name:"Moneypenny"},
+    {$set:
+        { 
+            role:"citizen",
+            name: "Miss Moneypenny"}
+    }
+)
+//update multiple ones (optional option)
+db.customers.updateMany(
+    { age: { $gt: 35 } },
+    { $set:
+        { role: "double-zero"}
+    }
+)
+//update ALL
+db.customers.updateMany (
+    {},
+    { $set:
+        { role: "citizen" }
+    }
+)</code></pre>
+<br>
+
+# Delete
+
+<a href="https://www.mongodb.com/docs/manual/reference/method/db.collection.deleteOne/#mongodb-method-db.collection.deleteOne">db.collection.deleteOne()</a><br>
+<a href="https://www.mongodb.com/docs/manual/reference/method/db.collection.deleteMany/#mongodb-method-db.collection.deleteMany">db.collection.deleteMany()</a><br>
+
+## Usage:
+
+<pre><code>db.customers.deleteOne (
+    { name: "M"}
+)
+//Delete all
+db.customers.deleteMany (
+    {}
+)</code></pre>
+<br>
+
+# Limit
+
+<br>
+
+<pre><code>//prints only 2 (first) records
+db.customers.find().limit(2)</code></pre>
+<br>
+
+# Sort
+
+<pre><code>//limit & sort
+
+//limit to 10 records
+db.oscars.find().limit(10)
+
+//using projection, limit to 10, and sort in ascending order
+//projection only prints the selected fields (year, title)
+//_id:0 excludes the _id field from printing.
+db.oscars.find({}, {_id:0, year:1, title:1}).limit(10).sort({year:1})
+
+//the same but descending order
+db.oscars.find({}, {_id:0, year:1, title:1}).limit(10).sort({year:-1})
+
+//the same but with a boolean field
+//see that it prints the last 10 records in descending order
+//if we sort {year:1} it'll print the first 10 records in ascending order
+db.oscars.find({releaseYear: {$lte:1960}},{_id:0,title:1,year:1}).limit(10).sort({year:-1})</code></pre>
+<br>
+
+# Create Index
+
+<code>db.[collection-name].createIndex( { [field to index]: 1/-1 })</code><br>
+
+<pre><code>db.oscars.createIndex({title:1})
+db.oscars.getIndexes()</code></pre>
+<br>
+
+<a href="https://www.mongodb.com/docs/manual/reference/method/db.collection.createIndex/#db.collection.createIndex">db.collection.createIndex()</a><br>
+<a href="https://www.mongodb.com/docs/manual/reference/method/db.collection.createIndexes/">db.collection.createIndexes()</a><br>
+<a href="https://www.mongodb.com/docs/manual/reference/method/db.collection.getIndexes/#mongodb-method-db.collection.getIndexes">db.collection.getIndexes()</a><br>
+<br>
+
+# Aggregation
+
+## example:
+
+Creating a new collection and adding some records:<br>
+
+<pre><code>db.orders.insertMany (
+    [
+        {"cust_id":"A123","amount":500,"status":"A"},
+        {"cust_id":"A123","amount":250,"status":"A"},
+        {"cust_id":"B212","amount":200,"status":"A"},
+        {"cust_id":"A123","amount":300,"status":"D"}
+    ]
+)</code></pre>
+<br>
+
+Aggregation and grouping: getting all that `match` with `status:"A"`, grouped by `cust_id`, and adding the `amount` together.<br>
+
+<pre><code>db.orders.aggregate (
+    [
+        { $match: { status: "A" } },
+        { $group: { 
+                    _id: "$cust_id,
+                    total: { $sum: "$amount } } 
+                }
+    ]
+)</code></pre>
+<br>
+
+Printing out the distinct `cust_id`'s:
+
+<pre><code>db.orders.distinct (
+    "cust_id"
+)</code></pre>
+<br>
+
+<a href="https://www.mongodb.com/docs/manual/aggregation/">Aggregation Operations Documentation</a>
