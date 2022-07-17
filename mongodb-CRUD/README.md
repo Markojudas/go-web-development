@@ -47,19 +47,19 @@ A collection of key-value pairs
 </ol>
 <br>
 
-## Make a Database
+# Make a Database
 
 <pre><code>use [db-name]</code></pre>
 
 **note:** this is also use to "use" an existing database; be careful of typos!
 <br>
 
-## Show DBS
+# Show DBS
 
 <pre><code>show dbs/databases</code></pre>
 <br>
 
-## Insert Document
+# Insert Document
 
 <pre><code>db.[collection-name],insert({"name":"Jose"})</code></pre>
 
@@ -71,20 +71,32 @@ use instead:
 db.[collection-name].insertMany()
 db.[collection-name].bulkWrite()</code></pre>
 
-## view Collections
+<h2>Example</h2>
+
+<pre><code>db.customer.insertOne({"key":"value"})
+db.customer.insertMany(
+    [
+        {"key":"value"},
+        {"key":"value"},
+        ...
+        {"key":"value}
+    ]
+)</code></pre>
+
+# view Collections
 
 <pre><code>show collections</code></pre>
 
 Pretty self explanatory :)
 <br>
 
-## See the Collection
+# See the Collection
 
 <pre><code>db.[collection-name].find()
 db.[collection-name].find().pretty()</code></pre>
 <br>
 
-## Drop DB
+# Drop DB
 
 <pre><code>db.dropDatabase()</code></pre>
 
@@ -92,14 +104,16 @@ Also, pretty self explanatory! ;)
 <br>
 <br>
 
-## Create Collections
+# Create Collections
 
-**implicitly**<br>
-<code>db.[collection-name].insertOne("key":"value")</code>
+## implicitly
+
+<code>db.[collection-name].insertOne({"key":"value"})</code>
 <br>
 <br>
 
-**explicitly**<br>
+## explicitly
+
 <code>db.createCollection(\<name\>, {\<optional options\>})</code>
 <br>
 <br>
@@ -121,12 +135,12 @@ Also, pretty self explanatory! ;)
 <pre><code>db.createCollection("crs", {capped:true, size:65536, max:1000000})</code></pre>
 <br>
 
-## Drop Collection
+# Drop Collection
 
 <pre><code>db.[collection-name].drop()</code></pre>
 <br>
 
-## Insert Many Documents
+# Insert Many Documents
 
 <pre><code>db.[collectionName].insertMany(
     [ < document 1 >, < document 2 >, ...],
@@ -141,3 +155,91 @@ Also, pretty self explanatory! ;)
 | `document`     | document | an array of documents to insert into the collection.                                                                                                                                                                                                                                                                                                                                                                                              |
 | `writeConcern` | document | Optional. A document expressing the <a href="https://www.mongodb.com/docs/manual/reference/write-concern/">write concern</a>. Omit to use the default write concern. <br><br>Do not explicitly set the write concern for the operation if run in a transaction. To use write concern with transactions, see <a href="https://www.mongodb.com/docs/manual/core/transactions/#std-label-transactions-write-concern">Transactions and Write Concern. |
 | `ordered`      | boolean  | Optional. A boolean specifying whether the `mongod` instance should perform an ordered or unordered insert. defaults to `true`.                                                                                                                                                                                                                                                                                                                   |
+
+<br>
+
+# Query
+
+## find
+
+<pre><code>db.[collection-name].find()</pre></code>
+<br>
+
+## find one
+
+<pre><code>db.[collection-name].findOne()</pre></code>
+<br>
+
+## find specific
+
+<pre><code>db.[collection-name],find({ "key", "value"})
+db.customers.find({"name":"Bond"})
+db.customers.find("name:"Bond"})</code></pre>
+
+## AND
+
+<pre><code>db.customers.find ( { $and: [ { role: "citizen" }, { age: {$gt: 40} } ] } )</code></pre>
+
+## OR
+
+<pre><code>db.customers.find(
+    {
+        $or: [            
+            
+            {age: { $lt: 40 }},
+            {age: { $gt: 60 }}
+            
+        ]
+    }
+)</code></pre>
+<pre><code>db.customers.find(
+    {
+        $or: [            
+            
+            {age: { $lt: 40 }},
+            {age: { $gt: 60 }}
+            
+        ]
+    }
+)</code></pre>
+
+## AND OR
+
+<pre><code>db.customers.find(
+    {
+        $or: 
+            [
+                {
+                    $and: 
+                        [ { role: "citizen" }, { age: { $lt: 50 } } ]
+                },
+                {
+                    $and: 
+                        [ { role: "citizen" }, { age: { $gt: 60 } } ]
+                }
+            ]
+    }
+)</code></pre>
+
+## Operators
+
+| Operator            | Syntax              | Example                              |
+| ------------------- | ------------------- | ------------------------------------ |
+| equality            | {key:value}         | db.customers.find({"name": "bond"})  |
+| less than           | {key:{$lt:value}}   | db.customers.find({age: {$lt: 40}})  |
+| less than equals    | {key: {$lte:value}} | db.customers.find({age: {$lte: 40}}) |
+| greater than        | {key: {$gt:value}   | db.customers.find({age: {$gt: 40}})  |
+| greater than equals | {key: {$gte:value}} | db.customers.find({age: {$gte: 40}}) |
+| not equals          | {key: {$ne: value}} | db.customers.find({age: {$ne: 40}})  |
+
+<br>
+
+## REGEX
+
+<pre><code>db.customers.find (
+    {
+        name: { $regex: '^M' }
+    }
+)</code></pre>
+
+<a href="./resources/regex.pdf">regex cheatsheet</a>
