@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"github.com/markojudas/web-development/mongodb-CRUD/bookstore_app/config"
-	"gopkg.in/mgo.v2/bson"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 type Book struct {
