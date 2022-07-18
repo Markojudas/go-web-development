@@ -6,6 +6,10 @@ In this module we will go deeper (to an extend) with MongoDB to **Create, Read, 
 
 **this is just a very basic introduction to NoSQL**
 
+**NOTE:**
+the driver `gopkg.in/mgo.v2` is NOT supported anymore (since MongoDB v3.6).<br>
+The officially supported driver for Go is <a href="https://pkg.go.dev/go.mongodb.org/mongo-driver@v1.10.0">go.mongodb.org/mongo-driver</a><br>
+
 <h2>Organization</h2>
 
 Since there aren't any schemas to follow, we are 100% responsible for the organization of the data. A bunch of non-related data can be stored together. The developer needs to impose the schema.
