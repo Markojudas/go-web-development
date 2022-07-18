@@ -123,7 +123,8 @@ func UpdateBook(r *http.Request) (Book, error) {
 	//err = config.Books.Update(bson.M{"isbn": bk.Isbn}, &bk)
 
 	filter := bson.M{"isbn": bk.Isbn}
-	_, err = config.Books.UpdateOne(context.TODO(), filter, bk)
+	update := bson.D{{Key: "$set", Value: bson.M{"title": bk.Title, "author": bk.Author, "price": bk.Price}}}
+	_, err = config.Books.UpdateOne(context.TODO(), filter, update)
 
 	if err != nil {
 		return Book{}, err
