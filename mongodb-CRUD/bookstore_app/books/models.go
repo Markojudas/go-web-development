@@ -23,13 +23,13 @@ type Book struct {
 func AllBooks() ([]Book, error) {
 	bks := []Book{}
 
-	curr, err := config.Books.Find(context.TODO(), bson.M{})
+	curr, err := config.Books.Find(context.Background(), bson.M{})
 	if err != nil {
 		return nil, err
 	}
 	defer curr.Close(context.Background())
 
-	if err = curr.All(context.TODO(), &bks); err != nil {
+	if err = curr.All(context.Background(), &bks); err != nil {
 		return nil, err
 	}
 
@@ -85,7 +85,7 @@ func PutBook(r *http.Request) (Book, error) {
 	}
 
 	//convert from values
-	f64, err := strconv.ParseFloat(p, 32)
+	f64, err := strconv.ParseFloat(p, 64)
 	if err != nil {
 		return bk, errors.New("406. Not Acceptable. Price must be a number")
 	}
@@ -113,7 +113,7 @@ func UpdateBook(r *http.Request) (Book, error) {
 	}
 
 	// convert form values
-	f64, err := strconv.ParseFloat(p, 32)
+	f64, err := strconv.ParseFloat(p, 64)
 	if err != nil {
 		return bk, errors.New("406. Not Acceptable. Enter number for price")
 	}
